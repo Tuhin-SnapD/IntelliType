@@ -14,8 +14,8 @@ from pprint import pprint
 import nltk
 from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
-#nltk.download('brown')
-#nltk.download('reuters')
+nltk.download('brown')
+nltk.download('reuters')
 
 
 def get_trigram_freq(tokens):
