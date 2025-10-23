@@ -284,6 +284,6 @@ If you encounter any issues or have questions:
 
 **Made with ❤️ for the typing community**
 
-⭐ Star this repo](https://github.com/Tuhin-SnapD/IntelliType) • [🐛 Report Bug](https://github.com/Tuhin-SnapD/IntelliType/issues) • [💡 Request Feature](https://github.com/Tuhin-SnapD/IntelliType/issues)
+⭐ [Star this repo](https://github.com/Tuhin-SnapD/IntelliType) • [🐛 Report Bug](https://github.com/Tuhin-SnapD/IntelliType/issues) • [💡 Request Feature](https://github.com/Tuhin-SnapD/IntelliType/issues)
 
 </div>
