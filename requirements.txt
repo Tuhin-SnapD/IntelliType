@@ -1,3 +1,7 @@
-nltk
-simplejson
-flask
+nltk>=3.8
+flask>=2.3.0
+werkzeug>=2.3.0
+click>=8.0.0
+itsdangerous>=2.0.0
+markupsafe>=2.0.0
+jinja2>=3.0.0

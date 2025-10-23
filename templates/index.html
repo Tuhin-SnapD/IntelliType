@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Intelligent Keyboard - HCI</title>
+	<meta name="description" content="An intelligent keyboard with text prediction using NLTK">
 	<link href="https://fonts.googleapis.com/css?family=Quicksand:500" rel="stylesheet">
-
-	<!--<link rel="stylesheet" href="css/style.css"> -->
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 </head>
 
 <body>
 	<!--There are probably better ways to do this than hard-code everything in the HTML, but ¯\_(ツ)_/¯ -->
 
-	<div id="authors" style="width: 100%; text-align: center;">
-		<br>
-		<h2>Intelligent Typing</h2>
-		By
-		<div id="name1">Siddharth Sharma</div>
-	</div>
-	<div id="text">
-		<div id="enteredText">Click here, then start typing!</div>
-	</div>
-	<div id="suggestions">
-		<div id="pred1">Pred 1</div>
-		<span style="display:inline-block; width:40px;"></span>
-		<div id="pred2">Pred 2</div>
-		<span style="display:inline-block; width:40px;"></span>
-		<div id="pred3">Pred 3</div>
-
-	</div>
+	<header>
+		<h1>Intelligent Typing</h1>
+		<p>Smart text prediction with NLTK</p>
+	</header>
+	
+	<main>
+		<section id="text" role="textbox" aria-label="Text input area">
+			<div id="enteredText" tabindex="0" aria-label="Click here, then start typing!" contenteditable="true">Click here, then start typing!</div>
+		</section>
+		
+		<section id="suggestions" aria-label="Text predictions">
+			<button id="pred1" class="prediction-button" aria-label="Prediction 1">Pred 1</button>
+			<button id="pred2" class="prediction-button" aria-label="Prediction 2">Pred 2</button>
+			<button id="pred3" class="prediction-button" aria-label="Prediction 3">Pred 3</button>
+		</section>
+		
+	</main>
 	<div class="container">
 		<div id="keyboard">
 			<div id="firstrow" class="keyboard-row">
@@ -94,25 +92,25 @@
 				<kbd class="shifter" id="188">,</kbd>
 				<kbd class="shifter" id="190">.</kbd>
 				<kbd class="shifter" id="191">/</kbd>
-				<kbd class="longer operationKey" id="16">shift</kbd>
+				<kbd class="longer operationKey" id="16r">shift</kbd>
 			</div>
 			<div id="fifthrow" class="keyboard-row">
-				<kbd class="operationKey" id="188">fn</kbd>
+				<kbd class="operationKey" id="188f">fn</kbd>
 				<kbd class="operationKey" id="17">ctrl</kbd>
 				<kbd class="operationKey" id="18">opt</kbd>
 				<kbd class="long operationKey" id="91">⌘</kbd>
 				<kbd class="spacebar operationKey" id="32">&nbsp;</kbd>
-				<kbd class="long operationKey" id="91">⌘</kbd>
-				<kbd class="operationKey" id="18">opt</kbd>
-				<kbd class="operationKey" id="17">ctrl</kbd>
-				<kbd class="operationKey" id="188">fn</kbd>
+				<kbd class="long operationKey" id="91r">⌘</kbd>
+				<kbd class="operationKey" id="18r">opt</kbd>
+				<kbd class="operationKey" id="17r">ctrl</kbd>
+				<kbd class="operationKey" id="188fr">fn</kbd>
 			</div>
 		</div>
 	</div>
-	<br>
-	<pre style="width: 100%; text-align: center;">Click the screen or type shift + delete to clear all text.</pre>
+	<footer>
+		<p style="width: 100%; text-align: center;">Click the screen or type shift + delete to clear all text.</p>
+	</footer>
 
-	<!--<script  src="js/index.js"></script> -->
 	<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 
