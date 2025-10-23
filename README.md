@@ -63,27 +63,6 @@
 
 </div>
 
-## Quick Start
-
-### Windows (One-Click)
-1. **Download** the repository
-2. **Double-click** `run_app.bat`
-3. **Wait** for dependencies to install
-4. **Open** http://localhost:5000 in your browser
-
-### Manual Installation
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/intelligent-typing.git
-cd intelligent-typing
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the application
-python app.py
-```
-
 ## Installation
 
 ### Prerequisites
@@ -96,7 +75,7 @@ python app.py
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Tuhin-SnapD/IntelliType
-   cd intelligent-typing
+   cd IntelliType
    ```
 
 2. **Create a virtual environment** (recommended)
@@ -305,6 +284,6 @@ If you encounter any issues or have questions:
 
 **Made with ❤️ for the typing community**
 
-[⭐ Star this repo](https://github.com/yourusername/intelligent-typing) • [🐛 Report Bug](https://github.com/yourusername/intelligent-typing/issues) • [💡 Request Feature](https://github.com/yourusername/intelligent-typing/issues)
+⭐ Star this repo](https://github.com/Tuhin-SnapD/IntelliType) • [🐛 Report Bug](https://github.com/Tuhin-SnapD/IntelliType/issues) • [💡 Request Feature](https://github.com/Tuhin-SnapD/IntelliType/issues)
 
 </div>
