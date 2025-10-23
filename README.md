@@ -58,11 +58,8 @@
 
 <div align="center">
 
-![Main Interface](https://via.placeholder.com/800x400/667eea/ffffff?text=Intelligent+Typing+Interface)
+![Main Interface](landing.png)
 *Clean, modern interface with virtual keyboard*
-
-![Predictions](https://via.placeholder.com/800x400/764ba2/ffffff?text=Smart+Text+Predictions)
-*Real-time text predictions as you type*
 
 </div>
 
