@@ -1,60 +1,60 @@
-# 🚀 Intelligent Typing Application
+# Intelligent Typing Application
 
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.3+-green.svg)
-![NLTK](https://img.shields.io/badge/NLTK-3.8+-orange.svg)
+![Transformers](https://img.shields.io/badge/Transformers-4.21+-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-**A smart text prediction application with virtual keyboard using NLTK and Flask**
+**An intelligent text prediction application with virtual keyboard using Transformers and Flask**
 
-[Features](#-features) • [Quick Start](#-quick-start) • [Installation](#-installation) • [Usage](#-usage) • [API](#-api) • [Contributing](#-contributing)
+[Features](#features) • [Quick Start](#quick-start) • [Installation](#installation) • [Usage](#usage) • [API](#api) • [Contributing](#contributing)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Features](#-features)
-- [Screenshots](#-screenshots)
-- [Quick Start](#-quick-start)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [API Documentation](#-api-documentation)
-- [Architecture](#-architecture)
-- [Performance](#-performance)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Architecture](#architecture)
+- [Performance](#performance)
+- [Contributing](#contributing)
+- [License](#license)
 
-## ✨ Features
+## Features
 
-### 🧠 Smart Text Prediction
-- **Real-time predictions** using NLTK bigram models
-- **Brown corpus training** for accurate word suggestions
+### Smart Text Prediction
+- **Real-time predictions** using advanced language models
+- **Transformer-based** text generation for accurate suggestions
 - **Intelligent caching** for improved performance
 - **Fallback predictions** when no matches found
 
-### ⌨️ Virtual Keyboard
+### Virtual Keyboard
 - **Full QWERTY layout** with visual feedback
 - **Responsive design** for all screen sizes
 - **Keyboard shortcuts** support
 - **Accessibility features** with ARIA labels
 
-### 🎨 Modern UI/UX
-- **Clean, responsive interface** with glassmorphism effects
+### Modern UI/UX
+- **Clean, responsive interface** with modern design
 - **Smooth animations** and hover effects
 - **Mobile-friendly** design
 - **Error handling** with user feedback
 
-### ⚡ Performance
+### Performance
 - **Intelligent caching** system (100 entries, 5-minute TTL)
 - **Optimized predictions** with fallbacks
 - **Memory efficient** design
 - **Fast startup** time
 
-## 📸 Screenshots
+## Screenshots
 
 <div align="center">
 
@@ -66,7 +66,7 @@
 
 </div>
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Windows (One-Click)
 1. **Download** the repository
@@ -87,7 +87,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - **Python 3.8+**
@@ -125,7 +125,7 @@ python app.py
 
 5. **Open your browser** and navigate to `http://localhost:5000`
 
-## 🎯 Usage
+## Usage
 
 ### Basic Typing
 1. **Click** on the text area to start typing
@@ -145,7 +145,7 @@ python app.py
 - **Special characters** with shift key
 - **Visual feedback** on key press
 
-## 📚 API Documentation
+## API Documentation
 
 ### Endpoints
 
@@ -182,15 +182,12 @@ fetch('/output?string=hello')
   });
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ### Backend (Flask)
 ```
 app.py
-├── TextPredictor class
-│   ├── _load_corpus()
-│   └── get_predictions()
-├── Caching system
+├── Text prediction system
 │   ├── cache_key()
 │   ├── get_cached_prediction()
 │   └── cache_prediction()
@@ -228,7 +225,7 @@ static/css/style.css
 └── Animations
 ```
 
-## ⚡ Performance
+## Performance
 
 ### Caching Strategy
 - **Prediction cache**: 100 entries with 5-minute TTL
@@ -236,10 +233,10 @@ static/css/style.css
 - **Memory efficient**: Limited cache size
 
 ### Optimization Features
-- **Lazy loading**: NLTK data loaded on first use
+- **Lazy loading**: Model data loaded on first use
 - **Error handling**: Graceful fallbacks
 - **Input validation**: Prevents unnecessary processing
-- **Efficient algorithms**: Optimized bigram processing
+- **Efficient algorithms**: Optimized text processing
 
 ### Benchmarks
 - **Startup time**: < 2 seconds
@@ -247,7 +244,7 @@ static/css/style.css
 - **Memory usage**: < 50MB
 - **Cache hit rate**: > 80% (typical usage)
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Here's how you can help:
 
@@ -278,18 +275,17 @@ We welcome contributions! Here's how you can help:
 4. **Push** to the branch (`git push origin feature/amazing-feature`)
 5. **Open** a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- **NLTK** for natural language processing capabilities
+- **Transformers** for advanced language model capabilities
 - **Flask** for the web framework
-- **jQuery** for DOM manipulation
 - **Contributors** who helped enhance the application
 
-## 📞 Support
+## Support
 
 If you encounter any issues or have questions:
 
@@ -297,7 +293,7 @@ If you encounter any issues or have questions:
 2. **Create** a new issue with detailed information
 3. **Contact** the maintainers
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - **Multi-language support** for international users
 - **Voice input integration** for hands-free typing
