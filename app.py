@@ -9,7 +9,6 @@ import hashlib
 from typing import List, Tuple, Optional
 from collections import defaultdict
 
-import nltk
 from flask import Flask, render_template, jsonify, request
 import re
 
@@ -20,21 +19,6 @@ logger = logging.getLogger(__name__)
 # Initialize Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change in production
-
-# Download required NLTK data
-try:
-    nltk.download('brown', quiet=True)
-    nltk.download('punkt', quiet=True)
-    logger.info("NLTK data downloaded successfully")
-except Exception as e:
-    logger.error(f"Failed to download NLTK data: {e}")
-    logger.warning("Application will continue with limited functionality")
-
-
-def get_bigram_freq(tokens: List[str]) -> nltk.ConditionalFreqDist:
-    """Calculate bigram frequency distribution from tokens."""
-    bgs = list(nltk.bigrams(tokens))
-    return nltk.ConditionalFreqDist(bgs)
 
 
 # Simple cache for predictions
@@ -70,28 +54,49 @@ def cache_prediction(text: str, predictions: List[Tuple]) -> None:
 
 
 class TextPredictor:
-    """Simple text prediction engine using NLTK."""
+    """Advanced text prediction engine using transformers."""
     
     def __init__(self):
-        """Initialize the text predictor with corpus data."""
-        self.bgs_freq = None
-        self._load_corpus()
+        """Initialize the text predictor with a pre-trained model."""
+        self.model = None
+        self.tokenizer = None
+        self._load_model()
     
-    def _load_corpus(self):
-        """Load and process corpus data."""
+    def _load_model(self):
+        """Load a pre-trained language model for text prediction."""
         try:
-            from nltk.corpus import brown
-            tokens = brown.words()
-            logger.info(f"Loaded {len(tokens)} tokens from Brown corpus")
-            self.bgs_freq = get_bigram_freq(tokens)
-            logger.info("Frequency distributions computed successfully")
+            from transformers import GPT2LMHeadModel, GPT2Tokenizer
+            import torch
+            
+            # Use a smaller, faster model for better performance
+            model_name = "gpt2"  # Small, fast model
+            logger.info(f"Loading model: {model_name}")
+            
+            self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+            self.model = GPT2LMHeadModel.from_pretrained(model_name)
+            
+            # Set pad token
+            if self.tokenizer.pad_token is None:
+                self.tokenizer.pad_token = self.tokenizer.eos_token
+            
+            # Set model to evaluation mode
+            self.model.eval()
+            
+            logger.info("Model loaded successfully")
+            
+        except ImportError:
+            logger.warning("Transformers library not available, no predictions will be provided")
+            self.model = None
+            self.tokenizer = None
         except Exception as e:
-            logger.error(f"Failed to load corpus: {e}")
-            self.bgs_freq = nltk.ConditionalFreqDist()
-            logger.warning("Using empty frequency distributions - predictions may be limited")
+            logger.error(f"Failed to load model: {e}")
+            self.model = None
+            self.tokenizer = None
+            # Provide fallback predictions
+            self._fallback_predictions = True
     
     def get_predictions(self, text: str) -> List[Tuple]:
-        """Get text predictions."""
+        """Get text predictions using the advanced model."""
         if not text or not text.strip():
             return []
         
@@ -105,22 +110,108 @@ class TextPredictor:
             return []
         
         predictions = []
-        last_word = words[-1].lower()
         
-        # Get bigram predictions
         try:
-            if self.bgs_freq and last_word in self.bgs_freq:
-                predictions = self.bgs_freq[last_word].most_common(3)
+            if self.model is not None and self.tokenizer is not None:
+                # Use the advanced model for predictions
+                predictions = self._get_transformer_predictions(text)
             else:
-                # Fallback: return common words if no predictions found
-                predictions = [('the', 1), ('and', 1), ('for', 1)]
+                # No model available, use fallback predictions
+                predictions = self._get_fallback_predictions(text)
+                
         except Exception as e:
             logger.error(f"Error getting predictions: {e}")
-            predictions = [('the', 1), ('and', 1), ('for', 1)]
+            predictions = []
         
         # Cache the results
         cache_prediction(text, predictions)
         return predictions
+    
+    def _get_transformer_predictions(self, text: str) -> List[Tuple]:
+        """Get predictions using the transformer model."""
+        try:
+            import torch
+            
+            # Tokenize input
+            inputs = self.tokenizer.encode(text, return_tensors="pt")
+            
+            # Generate predictions
+            with torch.no_grad():
+                outputs = self.model.generate(
+                    inputs,
+                    max_length=inputs.shape[1] + 5,  # Generate more tokens
+                    num_return_sequences=3,
+                    num_beams=3,
+                    temperature=0.7,
+                    do_sample=True,
+                    pad_token_id=self.tokenizer.eos_token_id,
+                    eos_token_id=self.tokenizer.eos_token_id,
+                    early_stopping=True
+                )
+            
+            # Decode predictions
+            predictions = []
+            for output in outputs:
+                # Get the new tokens (excluding the input)
+                new_tokens = output[inputs.shape[1]:]
+                if len(new_tokens) > 0:
+                    # Decode the new tokens
+                    new_text = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
+                    # Split into words and take the first word
+                    words = new_text.strip().split()
+                    if words:
+                        word = words[0].strip()
+                        if word and len(word) > 0:
+                            predictions.append((word, 1))
+            
+            # Remove duplicates while preserving order
+            seen = set()
+            unique_predictions = []
+            for pred in predictions:
+                if pred[0] not in seen and pred[0]:
+                    seen.add(pred[0])
+                    unique_predictions.append(pred)
+            
+            return unique_predictions[:3]
+            
+        except Exception as e:
+            logger.error(f"Error in transformer predictions: {e}")
+            return []
+    
+    def _get_fallback_predictions(self, text: str) -> List[Tuple]:
+        """Get simple fallback predictions when model is not available."""
+        words = text.strip().split()
+        if not words:
+            return []
+        
+        last_word = words[-1].lower()
+        
+        # Simple word completion based on common patterns
+        common_words = {
+            'th': ['the', 'that', 'this'],
+            'he': ['hello', 'help', 'here'],
+            'an': ['and', 'any', 'answer'],
+            'in': ['into', 'information', 'include'],
+            'on': ['only', 'once', 'online'],
+            'at': ['about', 'after', 'around'],
+            'be': ['because', 'before', 'between'],
+            'ha': ['have', 'has', 'had'],
+            'wi': ['with', 'will', 'would'],
+            'yo': ['you', 'your', 'young']
+        }
+        
+        predictions = []
+        for prefix, completions in common_words.items():
+            if last_word.startswith(prefix):
+                for completion in completions:
+                    if completion.startswith(last_word):
+                        predictions.append((completion, 1))
+        
+        # If no matches, return some generic suggestions
+        if not predictions:
+            predictions = [('the', 1), ('and', 1), ('for', 1)]
+        
+        return predictions[:3]
 
 
 # Initialize text predictor
@@ -181,11 +272,22 @@ def get_predictions():
         # Get predictions
         predictions = predictor.get_predictions(text)
         
-        # Ensure we return at least 3 predictions
+        # Ensure we return at least 3 predictions with fallback values
         while len(predictions) < 3:
             predictions.append(('', 0))
         
-        return jsonify(predictions[:3])
+        # Filter out empty predictions and ensure we have valid data
+        valid_predictions = [pred for pred in predictions[:3] if pred[0] and pred[0].strip()]
+        
+        # If no valid predictions, return empty strings
+        if not valid_predictions:
+            return jsonify([('', 0), ('', 0), ('', 0)])
+        
+        # Pad with empty predictions if needed
+        while len(valid_predictions) < 3:
+            valid_predictions.append(('', 0))
+        
+        return jsonify(valid_predictions[:3])
     
     except Exception as e:
         logger.error(f"Error in get_predictions: {e}")

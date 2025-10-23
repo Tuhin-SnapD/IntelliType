@@ -25,16 +25,15 @@
 		</section>
 		
 		<section id="suggestions" aria-label="Text predictions">
-			<button id="pred1" class="prediction-button" aria-label="Prediction 1">Pred 1</button>
-			<button id="pred2" class="prediction-button" aria-label="Prediction 2">Pred 2</button>
-			<button id="pred3" class="prediction-button" aria-label="Prediction 3">Pred 3</button>
+			<button id="pred1" class="prediction-button" aria-label="Prediction 1 (Ctrl+1)" data-shortcut="Ctrl+1">Pred 1</button>
+			<button id="pred2" class="prediction-button" aria-label="Prediction 2 (Ctrl+2)" data-shortcut="Ctrl+2">Pred 2</button>
+			<button id="pred3" class="prediction-button" aria-label="Prediction 3 (Ctrl+3)" data-shortcut="Ctrl+3">Pred 3</button>
 		</section>
 		
 	</main>
 	<div class="container">
 		<div id="keyboard">
 			<div id="firstrow" class="keyboard-row">
-				<kbd class="shifter" id="192">`</kbd>
 				<kbd class="shifter" id="49">1</kbd>
 				<kbd class="shifter" id="50">2</kbd>
 				<kbd class="shifter" id="51">3</kbd>
@@ -63,7 +62,7 @@
 				<kbd id="80">p</kbd>
 				<kbd class="shifter" id="219">[</kbd>
 				<kbd class="shifter" id="221">]</kbd>
-				<kbd class="shifter" id="220">\</kbd>
+				<kbd class="long operationKey" id="46">del</kbd>
 			</div>
 			<div id="thirdrow" class="keyboard-row">
 				<kbd class="long operationKey" id="20">caps</kbd>
@@ -95,20 +94,12 @@
 				<kbd class="longer operationKey" id="16r">shift</kbd>
 			</div>
 			<div id="fifthrow" class="keyboard-row">
-				<kbd class="operationKey" id="188f">fn</kbd>
-				<kbd class="operationKey" id="17">ctrl</kbd>
-				<kbd class="operationKey" id="18">opt</kbd>
-				<kbd class="long operationKey" id="91">⌘</kbd>
 				<kbd class="spacebar operationKey" id="32">&nbsp;</kbd>
-				<kbd class="long operationKey" id="91r">⌘</kbd>
-				<kbd class="operationKey" id="18r">opt</kbd>
-				<kbd class="operationKey" id="17r">ctrl</kbd>
-				<kbd class="operationKey" id="188fr">fn</kbd>
 			</div>
 		</div>
 	</div>
 	<footer>
-		<p style="width: 100%; text-align: center;">Click the screen or type shift + delete to clear all text.</p>
+		<p style="width: 100%; text-align: center;">Made for Fast Typers and NLP Enthusiasts.</p>
 	</footer>
 
 	<script src="{{ url_for('static', filename='js/index.js') }}"></script>
